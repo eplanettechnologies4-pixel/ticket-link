@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery &amp; Client Testimonials - Link International Travels & Tours</title>
+  <meta name="description" content="View memorable moments and client reviews from our blessed Hajj & Umrah journeys and exciting international tours.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+</head>
+<body>
+
+  <!-- Main Sticky Header / Navbar -->
+  <header class="site-header" id="siteHeader">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo-wrapper" id="navLogo">
+        <img src="assets/images/logo.jpg" alt="Link International Travels & Tours Logo" class="logo-img">
+      </a>
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link" id="navHome">Home</a></li>
+          <li><a href="about.html" class="nav-link" id="navAbout">About Us</a></li>
+          <li><a href="hajj-umrah.html" class="nav-link" id="navHajj">Hajj &amp; Umrah</a></li>
+          <li><a href="visit-visa.html" class="nav-link" id="navVisa">Visit Visa</a></li>
+          <li><a href="air-ticketing.html" class="nav-link" id="navFlights">Air Ticketing</a></li>
+          <li><a href="tours.html" class="nav-link" id="navTours">Tours</a></li>
+          <li><a href="gallery.html" class="nav-link active" id="navGallery">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link" id="navContact">Contact</a></li>
+          <li><a href="become-agent.html" class="btn-book-now btn-navbar-agent" id="btnNavbarBecomeAgent">Become an Agent</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       GALLERY PAGE (Matches Reference Image 3 Exactly)
+       ========================================================================= -->
+  <main>
+    
+    <!-- Gallery Section (Reference Image 3) -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-header">
+          <h1 class="section-title">Our Journey in Pictures</h1>
+          <p class="gallery-subtitle">Happy Moments, Blessed Journeys</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters" id="galleryFilters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="hajj">Hajj &amp; Umrah</button>
+          <button class="filter-btn" data-filter="tours">International Tours</button>
+          <button class="filter-btn" data-filter="groups">Group Tours</button>
+          <button class="filter-btn" data-filter="ziyarat">Ziyarat</button>
+        </div>
+
+        <!-- Dynamic Photo Grid -->
+        <div class="gallery-grid-8" id="galleryGrid">
+          
+          <!-- Photo 1: Kaaba in Makkah (Hajj & Umrah, Ziyarat) -->
+          <div class="gallery-item" data-category="hajj ziyarat" data-title="Holy Kaaba, Makkah al-Mukarramah">
+            <img src="assets/images/dest-saudi.jpg" alt="Holy Kaaba in Makkah with pilgrims" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Hajj &amp; Umrah</span>
+              <h4 class="gallery-title">Holy Kaaba, Makkah</h4>
+            </div>
+          </div>
+
+          <!-- Photo 2: Madinah Green Dome (Hajj & Umrah, Ziyarat) -->
+          <div class="gallery-item" data-category="hajj ziyarat" data-title="Prophet's Mosque Green Dome, Madinah">
+            <img src="assets/images/madinah-green-dome.jpg" alt="Prophet's Mosque Green Dome in Madinah" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Ziyarat</span>
+              <h4 class="gallery-title">Al-Masjid an-Nabawi, Madinah</h4>
+            </div>
+          </div>
+
+          <!-- Photo 3: Turkey Historical Blue Mosque (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="Istanbul Blue Mosque &amp; Hagia Sophia, Turkey">
+            <img src="assets/images/dest-turkiye.jpg" alt="Istanbul Blue Mosque and Hagia Sophia" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Istanbul Historic Tour, Turkey</h4>
+            </div>
+          </div>
+
+          <!-- Photo 4: Cappadocia Hot Air Balloons (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="Cappadocia Valley Hot Air Balloons, Turkey">
+            <img src="assets/images/gallery-cappadocia.jpg" alt="Cappadocia Turkey Hot Air Balloons" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Cappadocia Balloon Tour, Turkey</h4>
+            </div>
+          </div>
+
+          <!-- Photo 5: Pilgrims at Makkah Clock Tower (Hajj & Umrah, Group Tours) -->
+          <div class="gallery-item" data-category="hajj groups" data-title="Umrah Pilgrim Group at Grand Mosque Clock Tower">
+            <img src="assets/images/hero-makkah.jpg" alt="Pilgrims in Haram Makkah Clock Tower" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Group Tours</span>
+              <h4 class="gallery-title">Umrah Family Group, Makkah</h4>
+            </div>
+          </div>
+
+          <!-- Photo 6: Sheikh Zayed Grand Mosque (International Tours, Ziyarat) -->
+          <div class="gallery-item" data-category="tours ziyarat" data-title="Sheikh Zayed Grand Mosque, Abu Dhabi">
+            <img src="assets/images/grand-mosque.jpg" alt="Sheikh Zayed White Marble Mosque with Pool Reflection" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Ziyarat &amp; Tours</span>
+              <h4 class="gallery-title">Grand Mosque, Abu Dhabi</h4>
+            </div>
+          </div>
+
+          <!-- Photo 7: Malaysia Tropical Island Resort (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="Langkawi Overwater Resort, Malaysia">
+            <img src="assets/images/dest-malaysia.jpg" alt="Malaysia Island Overwater Resort" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Tropical Island Holiday, Malaysia</h4>
+            </div>
+          </div>
+
+          <!-- Photo 8: Dubai Marina Skyline (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="Dubai Marina &amp; Modern Skyscrapers">
+            <img src="assets/images/dest-uae.jpg" alt="Dubai Marina and Modern Skyscrapers" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Dubai Marina Luxury Tour</h4>
+            </div>
+          </div>
+
+          <!-- Photo 9: Sacred Kaaba Tawaf (Hajj & Umrah, Ziyarat) -->
+          <div class="gallery-item" data-category="hajj ziyarat" data-title="Sacred Tawaf at Mataf, Makkah">
+            <img src="assets/images/about-kaaba.jpg" alt="Pilgrims in Tawaf around Kaaba" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Hajj &amp; Umrah</span>
+              <h4 class="gallery-title">Sacred Tawaf, Makkah</h4>
+            </div>
+          </div>
+
+          <!-- Photo 10: Worldwide Landmarks (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="World Famous Destinations &amp; Landmarks">
+            <img src="assets/images/visa-landmarks-hero.jpg" alt="World Famous Travel Landmarks" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Europe &amp; Global Sightseeing</h4>
+            </div>
+          </div>
+
+          <!-- Photo 11: Spiritual Mosque Sanctuary (Hajj & Umrah, Ziyarat) -->
+          <div class="gallery-item" data-category="hajj ziyarat" data-title="Spiritual Mosque Courtyard &amp; Minarets">
+            <img src="assets/images/about-mosque.jpg" alt="Holy Mosque Architecture and Pilgrims" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Ziyarat</span>
+              <h4 class="gallery-title">Sacred Sanctuary &amp; Minarets</h4>
+            </div>
+          </div>
+
+          <!-- Photo 12: Airplane In Flight (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="International Group Flight &amp; Air Ticketing">
+            <img src="assets/images/airplane-window.jpg" alt="International Air Travel Over Clouds" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">Group Tours</span>
+              <h4 class="gallery-title">Worldwide Airline Connections</h4>
+            </div>
+          </div>
+
+          <!-- Photo 13: Maldives Overwater Villa (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="Maldives Luxury Overwater Villas &amp; Coral Lagoon">
+            <img src="assets/images/tour-maldives.jpg" alt="Maldives Overwater Resort Villas" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Maldives Luxury Water Villas</h4>
+            </div>
+          </div>
+
+          <!-- Photo 14: Baku Flame Towers & Caspian Promenade (International Tours) -->
+          <div class="gallery-item" data-category="tours" data-title="Baku City Skyline &amp; Flame Towers, Azerbaijan">
+            <img src="assets/images/tour-baku.jpg" alt="Baku Flame Towers and Waterfront" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Baku &amp; Caspian Sea Tour</h4>
+            </div>
+          </div>
+
+          <!-- Photo 15: Thailand Phuket & Phi Phi Islands (International Tours, Group Tours) -->
+          <div class="gallery-item" data-category="tours groups" data-title="Thailand Emerald Lagoons &amp; Longtail Boats">
+            <img src="assets/images/tour-thailand.jpg" alt="Thailand Islands Longtail Boats" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="gallery-badge">International Tours</span>
+              <h4 class="gallery-title">Thailand Tropical Adventure</h4>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trust Features Bar -->
+    <aside class="trust-bar-top">
+      <div class="container">
+        <div class="trust-bar-grid">
+          <div class="trust-bar-item">
+            <div class="trust-bar-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 16.5L6 12.5L7.41 11.09L10 13.67L16.59 7.09L18 8.5L10 16.5Z"/></svg>
+            </div>
+            <span class="trust-bar-title">Reliable Service</span>
+          </div>
+          <div class="trust-bar-item">
+            <div class="trust-bar-icon">
+              <svg viewBox="0 0 24 24"><path d="M19 7H11V3H5C3.9 3 3 3.9 3 5V21H5V19H19V21H21V9C21 7.9 20.1 7 19 7Z"/></svg>
+            </div>
+            <span class="trust-bar-title">Comfortable Hotels</span>
+          </div>
+          <div class="trust-bar-item">
+            <div class="trust-bar-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"/></svg>
+            </div>
+            <span class="trust-bar-title">Guided Ziyarat</span>
+          </div>
+          <div class="trust-bar-item">
+            <div class="trust-bar-icon">
+              <svg viewBox="0 0 24 24"><path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13Z"/></svg>
+            </div>
+            <span class="trust-bar-title">Experienced Staff</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Testimonials Section: "What Our Clients Say" (Reference Image 3: 3 Cards) -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="section-title">What Our Clients Say</h2>
+
+        <div class="testimonials-grid-3">
+          
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="quote-mark">&ldquo;</div>
+            <p class="testimonial-text">
+              Excellent service! Our Umrah journey was very smooth and well organized. Highly recommended.
+            </p>
+            <div class="client-info">
+              <div class="client-avatar">AR</div>
+              <div>
+                <h4 class="client-name">Ahmed Raza</h4>
+                <p class="client-city">Faisalabad</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="quote-mark">&ldquo;</div>
+            <p class="testimonial-text">
+              Professional and cooperative team. The complete visa process was handled perfectly.
+            </p>
+            <div class="client-info">
+              <div class="client-avatar">SK</div>
+              <div>
+                <h4 class="client-name">Sarah Khan</h4>
+                <p class="client-city">Lahore</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="quote-mark">&ldquo;</div>
+            <p class="testimonial-text">
+              Best travel experience with Link International. Everything was well managed.
+            </p>
+            <div class="client-info">
+              <div class="client-avatar">BA</div>
+              <div>
+                <h4 class="client-name">Bilal Ahmed</h4>
+                <p class="client-city">Rawalpindi</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="gallery-lightbox" id="galleryLightboxModal">
+      <div class="gallery-lightbox-content">
+        <button class="gallery-lightbox-close" id="lightboxClose" aria-label="Close Lightbox">&times;</button>
+        <img src="" alt="" class="gallery-lightbox-img" id="lightboxImg">
+        <div class="gallery-lightbox-footer">
+          <h4 class="gallery-lightbox-caption" id="lightboxCaption"></h4>
+          <button type="button" class="btn-gold open-booking-modal" data-service="Custom Tour Inquiry" style="padding: 8px 18px; font-size: 0.9rem;">
+            Inquire About This Trip
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Shared Footer -->
+  <footer class="site-footer">
+    <div class="footer-top-wave"></div>
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="footer-brand">
+          <img src="assets/images/logo.jpg" alt="Link International Travels & Tours" class="footer-logo-img">
+          <p>
+            Link International Travels &amp; Tours is dedicated to providing superior travel experiences, spiritual pilgrimages, and seamless global ticketing with utmost trust and excellence.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="hajj-umrah.html" class="footer-link">Hajj &amp; Umrah</a></li>
+            <li><a href="umrah.html" class="footer-link">Umrah Packages</a></li>
+            <li><a href="hajj.html" class="footer-link">Hajj Packages</a></li>
+            <li><a href="visit-visa.html" class="footer-link">Visit Visa</a></li>
+            <li><a href="air-ticketing.html" class="footer-link">Air Ticketing</a></li>
+            <li><a href="tours.html" class="footer-link">International Tours</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Popular Packages -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Top Services</h4>
+          <ul class="footer-links">
+            <li><a href="umrah.html" class="footer-link">Economy Umrah Package</a></li>
+            <li><a href="hajj.html" class="footer-link">VIP Hajj Package</a></li>
+            <li><a href="visit-visa.html" class="footer-link">Dubai Tourist Visa</a></li>
+            <li><a href="visit-visa.html" class="footer-link">Saudi Tourist &amp; Umrah Visa</a></li>
+            <li><a href="tours.html" class="footer-link">Turkey Holiday Tours</a></li>
+            <li><a href="air-ticketing.html" class="footer-link">Discounted Flight Deals</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Office -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"/></svg>
+            <span>H.NO 12, Block S, New Civic Line, Near State Bank Pakistan, Faisalabad</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M20 15.5C18.75 15.5 17.55 15.3 16.43 14.93C16.08 14.82 15.69 14.9 15.41 15.18L13.21 17.38C10.38 15.94 8.06 13.63 6.62 10.79L8.82 8.59C9.1 8.31 9.18 7.92 9.07 7.57C8.7 6.45 8.5 5.25 8.5 4C8.5 3.45 8.05 3 7.5 3H4C3.45 3 3 3.45 3 4C3 13.39 10.61 21 20 21C20.55 21 21 20.55 21 20V16.5C21 15.95 20.55 15.5 20 15.5Z"/></svg>
+            <span><a href="tel:+923008053198">+92 (300) 805-3198</a><br><a href="tel:03008053198">0300-8053198</a></span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 5L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
+            <span><a href="mailto:info@linktravels.com">info@linktravels.com</a></span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Link International Travels &amp; Tours. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">License Verification</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Book Now</h3>
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <form class="modal-body" id="bookingForm">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="modalName">Full Name</label>
+            <input type="text" class="form-input" id="modalName" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="modalPhone">Phone / WhatsApp</label>
+            <input type="tel" class="form-input" id="modalPhone" placeholder="0300-XXXXXXX" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalService">Service</label>
+          <select class="form-select" id="modalService" required>
+            <option value="" disabled selected>-- Select Service --</option>
+            <optgroup label="Hajj &amp; Umrah">
+              <option value="Umrah Package">Umrah Package</option>
+              <option value="Economy Umrah Package (PKR 180,000)">Economy Umrah Package (PKR 180,000)</option>
+              <option value="Standard Umrah Package (PKR 230,000)">Standard Umrah Package (PKR 230,000)</option>
+              <option value="VIP Umrah Package (PKR 300,000)">VIP Umrah Package (PKR 300,000)</option>
+              <option value="Hajj Inquiry">Hajj Package / Registration</option>
+            </optgroup>
+            <optgroup label="Visit Visa">
+              <option value="Visit Visa">Visit Visa (General)</option>
+              <option value="USA Visit Visa">USA Visit Visa</option>
+              <option value="UK Visit Visa">UK Visit Visa</option>
+              <option value="Canada Visit Visa">Canada Visit Visa</option>
+              <option value="Schengen Visit Visa">Schengen Visit Visa</option>
+              <option value="Australia Visit Visa">Australia Visit Visa</option>
+              <option value="Turkey Visit Visa">Turkey Visit Visa</option>
+              <option value="UAE Dubai Visit Visa">UAE / Dubai Visit Visa</option>
+              <option value="Malaysia Visit Visa">Malaysia Visit Visa</option>
+              <option value="Thailand Visit Visa">Thailand Visit Visa</option>
+              <option value="Singapore Visit Visa">Singapore Visit Visa</option>
+            </optgroup>
+            <optgroup label="Air Ticketing">
+              <option value="Air Ticketing Quote">Air Ticketing / Flight Quote</option>
+            </optgroup>
+            <optgroup label="Holiday Tours">
+              <option value="Turkey Tour (PKR 280,000)">Turkey Tour - 7 Days (PKR 280,000)</option>
+              <option value="Malaysia Tour (PKR 220,000)">Malaysia Tour - 5 Days (PKR 220,000)</option>
+              <option value="Dubai Tour (PKR 200,000)">Dubai Tour - 5 Days (PKR 200,000)</option>
+              <option value="Maldives Tour (PKR 340,000)">Maldives Tour - 5 Days (PKR 340,000)</option>
+              <option value="Baku Tour (PKR 175,000)">Baku Tour - 5 Days (PKR 175,000)</option>
+              <option value="Thailand Tour (PKR 210,000)">Thailand Tour - 6 Days (PKR 210,000)</option>
+              <option value="Custom Tour Inquiry">Custom Family / Group Tour</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option value="Consultation">General Travel Consultation</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalNotes">Message</label>
+          <textarea class="form-textarea" id="modalNotes" rows="3" placeholder="Travel date, number of persons, or any requirement..."></textarea>
+        </div>
+        <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;">
+          Send on WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

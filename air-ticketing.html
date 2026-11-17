@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Ticketing &amp; Best Flight Deals Worldwide - Link International Travels &amp; Tours</title>
+  <meta name="description" content="Book affordable domestic and international airline tickets with Link International Travels & Tours. Best flight rates, top airlines, flexible options, and 24/7 support.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Top Announcement Bar (Exact Reference Image)
+       ========================================================================= -->
+  <div class="flight-top-strip">
+    <div class="container">
+      <div class="flight-top-content">
+        <h2 class="flight-top-title">Let's Make Your Journey Memorable</h2>
+        <p class="flight-top-sub">Trusted <span>|</span> Comfortable <span>|</span> Affordable <span>|</span> Professional</p>
+      </div>
+      <button type="button" class="btn-quote-top open-booking-modal" data-service="Air Ticketing Quote" id="btnTopQuote">Get a Quote</button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       Main Sticky Header / Navbar
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo-wrapper" id="navLogo">
+        <img src="assets/images/logo.jpg" alt="Link International Travels & Tours Logo" class="logo-img">
+      </a>
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link" id="navHome">Home</a></li>
+          <li><a href="about.html" class="nav-link" id="navAbout">About Us</a></li>
+          <li><a href="hajj-umrah.html" class="nav-link" id="navHajj">Hajj &amp; Umrah</a></li>
+          <li><a href="visit-visa.html" class="nav-link" id="navVisa">Visit Visa</a></li>
+          <li><a href="air-ticketing.html" class="nav-link active" id="navFlights">Air Ticketing</a></li>
+          <li><a href="tours.html" class="nav-link" id="navTours">Tours</a></li>
+          <li><a href="gallery.html" class="nav-link" id="navGallery">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link" id="navContact">Contact</a></li>
+          <li><a href="become-agent.html" class="btn-book-now btn-navbar-agent" id="btnNavbarBecomeAgent">Become an Agent</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         Hero Section (Reference Image: Blue Sky + Airplane Flying Right)
+         ========================================================================= -->
+    <section class="hero-air-ticketing">
+      <div class="container">
+        <div class="hero-air-content">
+          <h1 class="hero-air-title">Air Ticketing</h1>
+          <h2 class="hero-air-subtitle">Best Flight Deals Worldwide</h2>
+          <p class="hero-air-desc">
+            We offer competitive airfares, multiple airlines, and flexible travel options for your convenience.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Interactive Flight Search Widget (Reference Image Card)
+         ========================================================================= -->
+    <section class="flight-search-section">
+      <div class="container">
+        <div class="flight-search-card">
+          <!-- Trip Type Tabs -->
+          <div class="flight-tabs-row" id="flightTabs">
+            <button class="flight-tab-btn active" type="button" data-type="oneway" id="tabOneWay">
+              <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+              One Way
+            </button>
+            <button class="flight-tab-btn" type="button" data-type="roundtrip" id="tabRoundTrip">
+              <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+              Round Trip
+            </button>
+            <button class="flight-tab-btn" type="button" data-type="multicity" id="tabMultiCity">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              Multi City
+            </button>
+          </div>
+
+          <!-- Search Form -->
+          <form id="flightSearchWidgetForm">
+            <!-- Row 1: From & To -->
+            <div class="flight-form-row-2">
+              <div class="flight-input-group">
+                <label class="flight-label" for="flightFromInput">From</label>
+                <div class="flight-input-wrapper">
+                  <svg class="flight-input-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  <input type="text" class="flight-input-field" id="flightFromInput" placeholder="City or Airport" value="Lahore (LHE)" required list="airportsList">
+                </div>
+              </div>
+              <div class="flight-input-group">
+                <label class="flight-label" for="flightToInput">To</label>
+                <div class="flight-input-wrapper">
+                  <svg class="flight-input-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  <input type="text" class="flight-input-field" id="flightToInput" placeholder="City or Airport" value="Dubai (DXB)" required list="airportsList">
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Departure Date & Return Date -->
+            <div class="flight-form-row-2">
+              <div class="flight-input-group">
+                <label class="flight-label" for="flightDeptDate">Departure Date</label>
+                <div class="flight-input-wrapper">
+                  <svg class="flight-input-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+                  <input type="date" class="flight-input-field" id="flightDeptDate" required>
+                </div>
+              </div>
+              <div class="flight-input-group" id="returnDateContainer">
+                <label class="flight-label" for="flightReturnDate" id="returnDateLabel">Return Date</label>
+                <div class="flight-input-wrapper">
+                  <svg class="flight-input-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+                  <input type="date" class="flight-input-field" id="flightReturnDate" disabled placeholder="Select Date (One-Way Selected)">
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Passengers & Class -->
+            <div class="flight-form-row-2">
+              <div class="flight-input-group">
+                <label class="flight-label" for="flightPassengersSelect">Passengers</label>
+                <div class="flight-input-wrapper">
+                  <svg class="flight-input-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                  <select class="flight-input-field" id="flightPassengersSelect">
+                    <option value="1 Passenger">1 Passenger</option>
+                    <option value="2 Passengers">2 Passengers</option>
+                    <option value="3 Passengers">3 Passengers</option>
+                    <option value="4 Passengers">4 Passengers</option>
+                    <option value="Family (2 Adults + 2 Kids)">Family (2 Adults + 2 Kids)</option>
+                    <option value="Group (5+ Passengers)">Group (5+ Passengers)</option>
+                  </select>
+                  <svg class="flight-select-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                </div>
+              </div>
+              <div class="flight-input-group">
+                <label class="flight-label" for="flightClassSelect">Class</label>
+                <div class="flight-input-wrapper">
+                  <svg class="flight-input-icon" viewBox="0 0 24 24"><path d="M4 18v3h3v-3h10v3h3v-3c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-1V4c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2zM7 4h10v2H7V4zm12 6v6H5v-6h14z"/></svg>
+                  <select class="flight-input-field" id="flightClassSelect">
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business Class">Business Class</option>
+                    <option value="First Class">First Class</option>
+                  </select>
+                  <svg class="flight-select-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Full-width Search Flights Button -->
+            <button type="submit" class="btn-search-flight" id="btnSearchFlightSubmit"  style="/* justify-content: center; */padding-left: 50px;padding-right: 50px;justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              Search Flights
+            </button>
+          </form>
+
+          <!-- Datalist for Fast Airport Selection -->
+          <datalist id="airportsList">
+            <option value="Lahore (LHE) - Allama Iqbal Intl"></option>
+            <option value="Islamabad (ISB) - Islamabad Intl"></option>
+            <option value="Karachi (KHI) - Jinnah Intl"></option>
+            <option value="Peshawar (PEW) - Bacha Khan Intl"></option>
+            <option value="Faisalabad (LYP) - Faisalabad Intl"></option>
+            <option value="Sialkot (SKT) - Sialkot Intl"></option>
+            <option value="Multan (MUX) - Multan Intl"></option>
+            <option value="Jeddah (JED) - King Abdulaziz Intl"></option>
+            <option value="Madinah (MED) - Prince Mohammad Intl"></option>
+            <option value="Riyadh (RUH) - King Khalid Intl"></option>
+            <option value="Dubai (DXB) - Dubai Intl"></option>
+            <option value="Abu Dhabi (AUH) - Zayed Intl"></option>
+            <option value="Sharjah (SHJ) - Sharjah Intl"></option>
+            <option value="Doha (DOH) - Hamad Intl"></option>
+            <option value="Istanbul (IST) - Istanbul Airport"></option>
+            <option value="London Heathrow (LHR)"></option>
+            <option value="Manchester (MAN)"></option>
+            <option value="New York (JFK)"></option>
+            <option value="Toronto (YYZ)"></option>
+            <option value="Kuala Lumpur (KUL)"></option>
+            <option value="Bangkok (BKK)"></option>
+          </datalist>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Trust & Feature Badges (Exact 4 Golden Circles from Reference Image)
+         ========================================================================= -->
+    <section class="flight-features-section">
+      <div class="container">
+        <div class="flight-features-grid">
+          
+          <!-- Badge 1: Best Prices Guaranteed -->
+          <div class="flight-feature-item">
+            <div class="flight-feature-icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <h3 class="flight-feature-title">Best Prices</h3>
+            <span class="flight-feature-sub">Guaranteed</span>
+          </div>
+
+          <!-- Badge 2: Multiple Airlines Options -->
+          <div class="flight-feature-item">
+            <div class="flight-feature-icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <h3 class="flight-feature-title">Multiple Airlines</h3>
+            <span class="flight-feature-sub">Options</span>
+          </div>
+
+          <!-- Badge 3: Easy Booking Process -->
+          <div class="flight-feature-item">
+            <div class="flight-feature-icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <h3 class="flight-feature-title">Easy Booking</h3>
+            <span class="flight-feature-sub">Process</span>
+          </div>
+
+          <!-- Badge 4: 24/7 Customer Support -->
+          <div class="flight-feature-item">
+            <div class="flight-feature-icon-circle">
+              <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2a9 9 0 0 0-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z"/></svg>
+            </div>
+            <h3 class="flight-feature-title">24/7</h3>
+            <span class="flight-feature-sub">Customer Support</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Official Airline Partners (Exact Logos from Reference Image)
+         ========================================================================= -->
+    <section class="airline-partners-section">
+      <div class="container">
+        <div class="airline-logos-row">
+          
+          <!-- Emirates -->
+          <div class="airline-brand-item" title="Emirates Airlines">
+            <svg width="125" height="38" viewBox="0 0 125 38">
+              <rect width="125" height="38" rx="4" fill="#D71921"/>
+              <text x="62.5" y="25" fill="#FFFFFF" font-family="'Playfair Display', Georgia, serif" font-weight="900" font-size="19" text-anchor="middle" letter-spacing="1">Emirates</text>
+            </svg>
+          </div>
+
+          <!-- Qatar Airways -->
+          <div class="airline-brand-item" title="Qatar Airways">
+            <svg width="160" height="38" viewBox="0 0 160 38">
+              <circle cx="19" cy="19" r="15" fill="#5C0632"/>
+              <path d="M13 22l6-11 6 11h-3.2l-2.8-5.5L16.2 22z" fill="#FFF"/>
+              <text x="42" y="25" fill="#5C0632" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="15" letter-spacing="1.5">QATAR</text>
+              <text x="106" y="25" fill="#7E124B" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="11" letter-spacing="1.2">AIRWAYS</text>
+            </svg>
+          </div>
+
+          <!-- Saudia -->
+          <div class="airline-brand-item" title="Saudia Airlines">
+            <svg width="150" height="38" viewBox="0 0 150 38">
+              <path d="M18 6l-7 11 7 11 7-11z" fill="#006C35"/>
+              <circle cx="18" cy="17" r="3.5" fill="#C59B27"/>
+              <text x="38" y="24" fill="#006C35" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="16" letter-spacing="1.5">SAUDIA</text>
+              <text x="110" y="24" fill="#C59B27" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="13">السعودية</text>
+            </svg>
+          </div>
+
+          <!-- Turkish Airlines -->
+          <div class="airline-brand-item" title="Turkish Airlines">
+            <svg width="175" height="38" viewBox="0 0 175 38">
+              <circle cx="19" cy="19" r="15" fill="#C7082A"/>
+              <path d="M13 20c2-4 7.5-6.5 12-4.5l-5.5 2.5-6.5 2z" fill="#FFF"/>
+              <text x="42" y="21" fill="#0F172A" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="13" letter-spacing="1.2">TURKISH</text>
+              <text x="42" y="30" fill="#C7082A" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="9.5" letter-spacing="2.2">AIRLINES</text>
+            </svg>
+          </div>
+
+          <!-- PIA -->
+          <div class="airline-brand-item" title="Pakistan International Airlines (PIA)">
+            <svg width="115" height="38" viewBox="0 0 115 38">
+              <rect width="115" height="38" rx="4" fill="#004D25"/>
+              <text x="57.5" y="26" fill="#E5B232" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="22" text-anchor="middle" letter-spacing="3.5">PIA</text>
+            </svg>
+          </div>
+
+        </div>
+        <p class="airlines-caption">...and many more airlines...</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       Standard Shared Footer Component
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="footer-top-wave"></div>
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="footer-brand">
+          <img src="assets/images/logo.jpg" alt="Link International Travels & Tours" class="footer-logo-img">
+          <p>
+            Link International Travels &amp; Tours is dedicated to providing superior travel experiences, spiritual pilgrimages, and seamless global ticketing with utmost trust and excellence.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="hajj-umrah.html" class="footer-link">Hajj &amp; Umrah</a></li>
+            <li><a href="umrah.html" class="footer-link">Umrah Packages</a></li>
+            <li><a href="hajj.html" class="footer-link">Hajj Packages</a></li>
+            <li><a href="visit-visa.html" class="footer-link">Visit Visa</a></li>
+            <li><a href="air-ticketing.html" class="footer-link">Air Ticketing</a></li>
+            <li><a href="tours.html" class="footer-link">International Tours</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Popular Packages -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Top Services</h4>
+          <ul class="footer-links">
+            <li><a href="umrah.html" class="footer-link">Economy Umrah Package</a></li>
+            <li><a href="hajj.html" class="footer-link">VIP Hajj Package</a></li>
+            <li><a href="visit-visa.html" class="footer-link">Dubai Tourist Visa</a></li>
+            <li><a href="visit-visa.html" class="footer-link">Saudi Tourist &amp; Umrah Visa</a></li>
+            <li><a href="tours.html" class="footer-link">Turkey Holiday Tours</a></li>
+            <li><a href="air-ticketing.html" class="footer-link">Discounted Flight Deals</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Office -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"/></svg>
+            <span>H.NO 12, Block S, New Civic Line, Near State Bank Pakistan, Faisalabad</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M20 15.5C18.75 15.5 17.55 15.3 16.43 14.93C16.08 14.82 15.69 14.9 15.41 15.18L13.21 17.38C10.38 15.94 8.06 13.63 6.62 10.79L8.82 8.59C9.1 8.31 9.18 7.92 9.07 7.57C8.7 6.45 8.5 5.25 8.5 4C8.5 3.45 8.05 3 7.5 3H4C3.45 3 3 3.45 3 4C3 13.39 10.61 21 20 21C20.55 21 21 20.55 21 20V16.5C21 15.95 20.55 15.5 20 15.5Z"/></svg>
+            <span><a href="tel:+923008053198">+92 (300) 805-3198</a><br><a href="tel:03008053198">0300-8053198</a></span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 5L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
+            <span><a href="mailto:info@linktravels.com">info@linktravels.com</a></span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Link International Travels &amp; Tours. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">License Verification</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Book Now</h3>
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <form class="modal-body" id="bookingForm">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="modalName">Full Name</label>
+            <input type="text" class="form-input" id="modalName" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="modalPhone">Phone / WhatsApp</label>
+            <input type="tel" class="form-input" id="modalPhone" placeholder="0300-XXXXXXX" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalService">Service</label>
+          <select class="form-select" id="modalService" required>
+            <option value="" disabled selected>-- Select Service --</option>
+            <optgroup label="Hajj &amp; Umrah">
+              <option value="Umrah Package">Umrah Package</option>
+              <option value="Economy Umrah Package (PKR 180,000)">Economy Umrah Package (PKR 180,000)</option>
+              <option value="Standard Umrah Package (PKR 230,000)">Standard Umrah Package (PKR 230,000)</option>
+              <option value="VIP Umrah Package (PKR 300,000)">VIP Umrah Package (PKR 300,000)</option>
+              <option value="Hajj Inquiry">Hajj Package / Registration</option>
+            </optgroup>
+            <optgroup label="Visit Visa">
+              <option value="Visit Visa">Visit Visa (General)</option>
+              <option value="USA Visit Visa">USA Visit Visa</option>
+              <option value="UK Visit Visa">UK Visit Visa</option>
+              <option value="Canada Visit Visa">Canada Visit Visa</option>
+              <option value="Schengen Visit Visa">Schengen Visit Visa</option>
+              <option value="Australia Visit Visa">Australia Visit Visa</option>
+              <option value="Turkey Visit Visa">Turkey Visit Visa</option>
+              <option value="UAE Dubai Visit Visa">UAE / Dubai Visit Visa</option>
+              <option value="Malaysia Visit Visa">Malaysia Visit Visa</option>
+              <option value="Thailand Visit Visa">Thailand Visit Visa</option>
+              <option value="Singapore Visit Visa">Singapore Visit Visa</option>
+            </optgroup>
+            <optgroup label="Air Ticketing">
+              <option value="Air Ticketing Quote">Air Ticketing / Flight Quote</option>
+            </optgroup>
+            <optgroup label="Holiday Tours">
+              <option value="Turkey Tour (PKR 280,000)">Turkey Tour - 7 Days (PKR 280,000)</option>
+              <option value="Malaysia Tour (PKR 220,000)">Malaysia Tour - 5 Days (PKR 220,000)</option>
+              <option value="Dubai Tour (PKR 200,000)">Dubai Tour - 5 Days (PKR 200,000)</option>
+              <option value="Maldives Tour (PKR 340,000)">Maldives Tour - 5 Days (PKR 340,000)</option>
+              <option value="Baku Tour (PKR 175,000)">Baku Tour - 5 Days (PKR 175,000)</option>
+              <option value="Thailand Tour (PKR 210,000)">Thailand Tour - 6 Days (PKR 210,000)</option>
+              <option value="Custom Tour Inquiry">Custom Family / Group Tour</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option value="Consultation">General Travel Consultation</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalNotes">Message</label>
+          <textarea class="form-textarea" id="modalNotes" rows="3" placeholder="Travel date, number of persons, or any requirement..."></textarea>
+        </div>
+        <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;">
+          Send on WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="assets/js/main.js"></script>
+
+  <!-- Page Specific Interactive Flight Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Set default departure date to 7 days from now
+      const deptInput = document.getElementById('flightDeptDate');
+      const returnInput = document.getElementById('flightReturnDate');
+      const today = new Date();
+      today.setDate(today.getDate() + 7);
+      const defaultDept = today.toISOString().split('T')[0];
+      if (deptInput) deptInput.value = defaultDept;
+
+      const retDate = new Date();
+      retDate.setDate(retDate.getDate() + 21);
+      const defaultReturn = retDate.toISOString().split('T')[0];
+      if (returnInput) returnInput.value = defaultReturn;
+
+      // 2. Flight Tabs Logic (One Way / Round Trip / Multi City)
+      const tabs = document.querySelectorAll('.flight-tab-btn');
+      const returnContainer = document.getElementById('returnDateContainer');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const type = tab.getAttribute('data-type');
+          if (type === 'oneway') {
+            returnInput.disabled = true;
+            returnInput.style.opacity = '0.5';
+            returnContainer.style.opacity = '0.6';
+          } else {
+            returnInput.disabled = false;
+            returnInput.style.opacity = '1';
+            returnContainer.style.opacity = '1';
+          }
+        });
+      });
+
+      // 3. Search Form Submit handling (Send Directly to WhatsApp 0300-8053198)
+      const form = document.getElementById('flightSearchWidgetForm');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const activeTab = document.querySelector('.flight-tab-btn.active');
+          const tripType = activeTab ? activeTab.innerText.trim() : 'One Way';
+          const from = document.getElementById('flightFromInput')?.value.trim() || 'Lahore (LHE)';
+          const to = document.getElementById('flightToInput')?.value.trim() || 'Dubai (DXB)';
+          const dept = document.getElementById('flightDeptDate')?.value || 'Not specified';
+          const returnDate = document.getElementById('flightReturnDate')?.value || '';
+          const pass = document.getElementById('flightPassengersSelect')?.value || '1 Passenger';
+          const cls = document.getElementById('flightClassSelect')?.value || 'Economy';
+
+          const WHATSAPP_NUMBER = '923008053198';
+
+          let msg = `✈️ *Flight Booking Inquiry - Link International Travels*\n`;
+          msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+          msg += `📍 *Trip Type:* ${tripType}\n`;
+          msg += `🛫 *From:* ${from}\n`;
+          msg += `🛬 *To:* ${to}\n`;
+          msg += `📅 *Departure Date:* ${dept}\n`;
+          if (!tripType.toLowerCase().includes('one way') && returnDate) {
+            msg += `📅 *Return Date:* ${returnDate}\n`;
+          }
+          msg += `👥 *Passengers:* ${pass}\n`;
+          msg += `💺 *Travel Class:* ${cls}\n`;
+          msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+          msg += `Assalam-o-Alaikum, mujhe is flight route ke available options aur best discounted rates kindly WhatsApp par share kar dain. Shukriya!`;
+
+          const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+          const submitBtn = document.getElementById('btnSearchFlightSubmit');
+          const originalContent = submitBtn ? submitBtn.innerHTML : 'Search Flights';
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 2.17.7 4.19 1.94 5.84L2.05 22l4.31-1.85C7.94 21.32 9.9 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+              </svg>
+              <span>Connecting to WhatsApp...</span>
+            `;
+          }
+
+          setTimeout(() => {
+            window.open(waUrl, '_blank');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalContent;
+            }
+          }, 450);
+        });
+      }
+
+      // 4. Modal Flight Quote Form Handling (Also forwards to WhatsApp 0300-8053198)
+      const bookingForm = document.getElementById('bookingForm');
+      if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const route = document.getElementById('modalFlightRoute')?.value.trim() || 'Flight Inquiry';
+          const name = document.getElementById('modalName')?.value.trim() || 'Guest';
+          const phone = document.getElementById('modalPhone')?.value.trim() || '';
+
+          const WHATSAPP_NUMBER = '923008053198';
+          let modalMsg = `✈️ *Instant Flight Quote Request - Link International*\n`;
+          modalMsg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+          modalMsg += `👤 *Customer Name:* ${name}\n`;
+          modalMsg += `📱 *Customer Phone:* ${phone}\n`;
+          modalMsg += `🛫 *Route & Flight Details:* ${route}\n`;
+          modalMsg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+          modalMsg += `Assalam-o-Alaikum, please share the ticket rates for this flight inquiry with me.`;
+
+          const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(modalMsg)}`;
+          window.open(waUrl, '_blank');
+
+          const bookingModal = document.getElementById('bookingModal');
+          if (bookingModal) bookingModal.classList.remove('active');
+          document.body.style.overflow = '';
+          bookingForm.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
