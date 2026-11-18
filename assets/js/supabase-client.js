@@ -1,6 +1,6 @@
 /**
  * Supabase Client Integration for Link International Travels & Tours
- * Handles package submissions, fetching approved packages, and real-time syncing.
+ * Handles package submissions, fetching approved packages, and real-time polling.
  */
 
 (function () {
@@ -27,8 +27,19 @@
   }
 
   /**
-   * Fetch approved packages from Supabase
-   * @param {'umrah' | 'hajj'} type 
+   * Safely parse formatted price strings like "2,000,000" or "PKR 250,000" into a valid Number
+   */
+  function parseNumeric(val, fallback) {
+    if (val === null || val === undefined || val === '') return fallback;
+    const cleaned = String(val).replace(/[^0-9.]/g, '');
+    if (!cleaned) return fallback;
+    const num = Number(cleaned);
+    return Number.isFinite(num) ? num : fallback;
+  }
+
+  /**
+   * Fetch approved packages (is_approved = true) from Supabase
+   * @param {'umrah' | 'hajj'} type
    * @returns {Promise<Array|null>}
    */
   async function fetchApprovedPackages(type) {
@@ -41,7 +52,7 @@
 
     try {
       const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-      const timeoutId = controller ? setTimeout(() => controller.abort(), 6000) : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), 12000) : null;
 
       const response = await fetch(endpoint, {
         method: 'GET',
@@ -63,20 +74,19 @@
       const data = await response.json();
       return Array.isArray(data) ? data : [];
     } catch (err) {
-      console.warn('Network error or paused Supabase project:', err.message);
+      console.warn('Network error fetching from Supabase:', err.message);
       return null;
     }
   }
 
   /**
-   * Insert a new package into Supabase with is_approved = false (pending admin review)
-   * @param {Object} pkgData 
+   * Insert a new package into Supabase `public.packages` with is_approved = false (pending admin review)
+   * @param {Object} pkgData
    * @returns {Promise<{success: boolean, data?: any, error?: string, networkError?: boolean}>}
    */
   async function submitPackage(pkgData) {
     if (!isConfigured()) {
-      console.info('Supabase not configured yet. Saving locally.');
-      return { success: false, fallback: true, error: 'Supabase credentials not configured' };
+      return { success: false, error: 'Supabase credentials are not configured in assets/js/supabase-config.js' };
     }
 
     const config = getConfig();
@@ -84,12 +94,12 @@
 
     const payload = {
       type: pkgData.type || 'umrah',
-      name: pkgData.name,
+      name: pkgData.name || 'Custom Package',
       airline: pkgData.airline || 'Standard Airline',
       days: String(pkgData.days || '21 Days'),
       dates: pkgData.dates || '',
       city: pkgData.city || 'lhe',
-      price: Number(pkgData.price || pkgData.bedPrice || 0),
+      price: parseNumeric(pkgData.price !== undefined ? pkgData.price : pkgData.bedPrice, 0),
       makkah_hotel: pkgData.makkahHotel || '',
       madinah_hotel: pkgData.madinahHotel || '',
       luggage: pkgData.luggage || '23 kg + 7 kg Hand Carry',
@@ -97,16 +107,16 @@
       image_url: pkgData.image || '',
       maktab: pkgData.maktab || 'maktab-c',
       mina_schedule: pkgData.minaSchedule || '',
-      quad_price: Number(pkgData.quadPrice || 0) || null,
-      triple_price: Number(pkgData.triplePrice || 0) || null,
-      double_price: Number(pkgData.doublePrice || 0) || null,
+      quad_price: parseNumeric(pkgData.quadPrice, null),
+      triple_price: parseNumeric(pkgData.triplePrice, null),
+      double_price: parseNumeric(pkgData.doublePrice, null),
       hijri_dates: pkgData.hijriDates || '',
       is_approved: false // Always submitted as pending approval!
     };
 
     try {
       const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-      const timeoutId = controller ? setTimeout(() => controller.abort(), 7000) : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), 15000) : null;
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -128,30 +138,30 @@
         return { success: false, error: errorText || `HTTP ${response.status}` };
       }
 
+      // With Prefer: return=minimal, PostgREST returns HTTP 201 Created with empty body
       return { success: true, data: payload };
     } catch (err) {
-      console.warn('Network error or paused Supabase during submit:', err.message);
-      return { 
-        success: false, 
-        error: err.name === 'AbortError' ? 'Connection timed out' : err.message, 
-        networkError: true 
+      console.error('Network error submitting to Supabase:', err);
+      return {
+        success: false,
+        error: err.name === 'AbortError' ? 'Request timed out while contacting Supabase' : err.message,
+        networkError: true
       };
     }
   }
 
   /**
-   * Listen for updates so when admin approves a package in Supabase,
-   * client view updates immediately!
+   * Poll Supabase so when admin approves a package (is_approved = true) in Table Editor,
+   * the client view displays it automatically!
    */
-  function startPollingForApprovedPackages(type, onUpdate, intervalMs = 15000) {
+  function startPollingForApprovedPackages(type, onUpdate, intervalMs = 5000) {
     if (!isConfigured()) return null;
 
     let lastSignature = '';
     let failedAttempts = 0;
 
     const check = async () => {
-      // If server failed 3+ times in a row, back off polling to avoid console noise
-      if (failedAttempts >= 3) {
+      if (failedAttempts >= 5) {
         return;
       }
 
@@ -162,31 +172,11 @@
       }
       failedAttempts = 0;
 
-      if (Array.isArray(packages)) {
-        const signature = packages.map(p => `${p.id}_${p.name}_${p.price}`).sort().join('|');
-        if (signature !== lastSignature) {
-          lastSignature = signature;
-          if (typeof onUpdate === 'function') {
-            onUpdate(packages);
-          }
-        }
-      }
-    };
-
-    // Run first check shortly after page load
-    setTimeout(check, 1200);
-
-    const intervalId = setInterval(check, intervalMs);
-    return () => clearInterval(intervalId);
-  }
-      const packages = await fetchApprovedPackages(type);
-      if (Array.isArray(packages)) {
-        const signature = packages.map(p => `${p.id}_${p.name}_${p.price}`).sort().join('|');
-        if (signature !== lastSignature) {
-          lastSignature = signature;
-          if (typeof onUpdate === 'function') {
-            onUpdate(packages);
-          }
+      const signature = packages.map(p => `${p.id}_${p.name}_${p.price}_${p.is_approved}`).sort().join('|');
+      if (signature !== lastSignature) {
+        lastSignature = signature;
+        if (typeof onUpdate === 'function') {
+          onUpdate(packages);
         }
       }
     };
@@ -207,4 +197,3 @@
   };
 
 })();
-

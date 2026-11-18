@@ -647,42 +647,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Render Approved / Custom Umrah Packages (from Supabase and Local Storage)
+  // Render Approved Umrah Packages (Strictly from Supabase where is_approved = true)
   async function renderCustomPackages() {
     if (!customContainer) return;
-    customContainer.innerHTML = '';
 
-    const localPackages = JSON.parse(localStorage.getItem('customUmrahPackages') || '[]');
-    let remotePackages = [];
+    // Clear any legacy localStorage cache so unapproved local cards never appear
+    try { localStorage.removeItem('customUmrahPackages'); } catch (e) {}
+
+    let packagesToDisplay = [];
 
     if (window.SupabasePackages && window.SupabasePackages.isConfigured()) {
       try {
         const remote = await window.SupabasePackages.fetchApprovedPackages('umrah');
         if (Array.isArray(remote)) {
-          remotePackages = remote;
+          packagesToDisplay = remote;
         }
       } catch (err) {
         console.warn('Supabase fetch failed:', err);
       }
     }
 
-    // Merge remote approved packages and locally published packages
-    const combinedMap = new Map();
-    remotePackages.forEach(pkg => {
-      const key = pkg.id || (pkg.name + '_' + (pkg.dates || ''));
-      combinedMap.set(key, { ...pkg, isRemote: true });
-    });
+    customContainer.innerHTML = '';
 
-    localPackages.forEach(pkg => {
-      const key = pkg.id || (pkg.name + '_' + (pkg.dates || ''));
-      if (!combinedMap.has(key)) {
-        combinedMap.set(key, { ...pkg, isRemote: false });
-      }
-    });
-
-    const packagesToDisplay = Array.from(combinedMap.values());
-
-    packagesToDisplay.forEach((pkg, idx) => {
+    packagesToDisplay.forEach((pkg) => {
       const card = document.createElement('div');
       card.className = 'umrah-offer-card';
       const city = (pkg.city || 'lhe').toLowerCase();
@@ -704,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${imgSrc}" alt="${pkg.name}">
           <div class="card-top-badges">
             <span class="badge-days">${days}</span>
-            <span class="badge-type">${pkg.isRemote ? 'Verified' : 'Live'}</span>
+            <span class="badge-type">Verified</span>
           </div>
           <div class="badge-seats-pill">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M22 10V6c0-1.11-.9-2-2-2H4c-1.1 0-1.99.89-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-9 7.5h-2v-2h2v2zm0-4.5h-2v-2h2v2zm0-4.5h-2v-2h2v2z"/></svg>
@@ -757,10 +744,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>View Details &amp; Reserve</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
-              ${!pkg.isRemote ? `
-              <button type="button" class="btn-delete-custom-pkg" data-id="${pkg.id || ''}" data-index="${idx}" style="background: #FEE2E2; color: #DC2626; border: none; border-radius: 8px; padding: 0 10px; cursor: pointer; font-size: 1.1rem; font-weight: bold;" title="Delete Local Package">
-                &times;
-              </button>` : ''}
             </div>
           </div>
         </div>
@@ -769,34 +752,15 @@ document.addEventListener('DOMContentLoaded', () => {
       customContainer.appendChild(card);
     });
 
-    // Delete handler for local custom packages
-    document.querySelectorAll('.btn-delete-custom-pkg').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const pkgId = btn.getAttribute('data-id');
-        const idx = Number(btn.getAttribute('data-index'));
-        let currentSaved = JSON.parse(localStorage.getItem('customUmrahPackages') || '[]');
-        if (pkgId) {
-          currentSaved = currentSaved.filter(p => p.id !== pkgId);
-        } else {
-          currentSaved.splice(idx, 1);
-        }
-        localStorage.setItem('customUmrahPackages', JSON.stringify(currentSaved));
-        renderCustomPackages();
-        if (typeof filterPackages === 'function') filterPackages();
-      });
-    });
-
     if (typeof filterPackages === 'function') filterPackages();
   }
 
-  // Handle Umrah Form Submit (Local-First + Supabase Cloud Sync)
+  // Handle Umrah Form Submit (Strictly saves to Supabase with is_approved = false; NO localStorage)
   if (uploadForm) {
     uploadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const newPkg = {
-        id: 'umrah_' + Date.now(),
         type: 'umrah',
         name: document.getElementById('pkgName')?.value.trim() || 'Custom Umrah Package',
         airline: document.getElementById('pkgAirline')?.value.trim() || 'Saudi Airlines',
@@ -808,69 +772,41 @@ document.addEventListener('DOMContentLoaded', () => {
         madinahHotel: document.getElementById('pkgMadinahHotel')?.value.trim() || 'Hotel near Prophet Mosque',
         luggage: document.getElementById('pkgLuggage')?.value.trim() || '23 kg + 7 kg Hand Carry',
         seats: document.getElementById('pkgSeats')?.value.trim() || '20 / 20 Seats Available',
-        image: uploadedImageData || 'assets/images/umrah-package-kaaba.jpg',
-        created_at: new Date().toISOString()
+        image: uploadedImageData || 'assets/images/umrah-package-kaaba.jpg'
       };
 
       const submitBtn = uploadForm.querySelector('button[type="submit"]');
       const origBtnHtml = submitBtn ? submitBtn.innerHTML : '';
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Publishing Package...</span>';
+        submitBtn.innerHTML = '<span>Saving to Supabase...</span>';
       }
 
-      // 1. Always save locally immediately so the package is NEVER lost and is live on the site!
       try {
-        const currentSaved = JSON.parse(localStorage.getItem('customUmrahPackages') || '[]');
-        currentSaved.unshift(newPkg);
-        localStorage.setItem('customUmrahPackages', JSON.stringify(currentSaved));
-      } catch (storageErr) {
-        console.warn('LocalStorage save warning:', storageErr);
-      }
-
-      // 2. Refresh UI cards right away
-      await renderCustomPackages();
-      if (typeof filterPackages === 'function') filterPackages();
-
-      // 3. Attempt Supabase Cloud Sync in the background
-      let supabaseSuccess = false;
-      let supabaseError = '';
-
-      if (window.SupabasePackages && window.SupabasePackages.isConfigured()) {
-        try {
-          const res = await window.SupabasePackages.submitPackage(newPkg);
-          if (res && res.success) {
-            supabaseSuccess = true;
-          } else {
-            supabaseError = res ? res.error : 'Connection error';
-          }
-        } catch (err) {
-          supabaseError = err.message;
+        if (!window.SupabasePackages || !window.SupabasePackages.isConfigured()) {
+          throw new Error('Supabase client is not loaded or configured. Please check assets/js/supabase-config.js and assets/js/supabase-client.js.');
         }
-      }
 
-      // Reset form and close modal
-      uploadForm.reset();
-      uploadedImageData = '';
-      if (uploadPreviewBox) {
-        uploadPreviewBox.innerHTML = '<span style="font-size: 0.85rem; color: #64748B;">Select an image or default holy Kaaba image will be used</span>';
-      }
-      closeUploadModal();
-
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = origBtnHtml;
-      }
-
-      // User notification
-      if (supabaseSuccess) {
-        alert('✅ Package Published Successfully!\n\nYour package is now live on this page and saved to Supabase (Pending Admin Review).');
-      } else {
-        const isNetworkErr = supabaseError.toLowerCase().includes('fetch') || supabaseError.toLowerCase().includes('network') || supabaseError.toLowerCase().includes('timeout');
-        if (isNetworkErr) {
-          alert('✅ Package Published to Website Successfully!\n\nYour package card is now live on this page.\n\n📌 Supabase Cloud Note: Your Supabase database at zkyllgszozizaqkoqkgz.supabase.co was paused by Supabase or unreachable. To sync cards to the cloud database, simply click "Restore project" in your Supabase dashboard at https://supabase.com/dashboard.');
+        const res = await window.SupabasePackages.submitPackage(newPkg);
+        if (res && res.success) {
+          uploadForm.reset();
+          uploadedImageData = '';
+          if (uploadPreviewBox) {
+            uploadPreviewBox.innerHTML = '<span style="font-size: 0.85rem; color: #64748B;">Select an image or default holy Kaaba image will be used</span>';
+          }
+          closeUploadModal();
+          alert('✅ Umrah Package Submitted to Supabase!\n\nYour package has been saved to the Supabase database (public.packages) with is_approved = false.\n\nGo to your Supabase Table Editor and change "is_approved" to TRUE — the card will appear automatically on this page!');
         } else {
-          alert('✅ Package Published to Website Successfully!\n\nYour package card is now live on this page.');
+          console.error('Supabase insert failed:', res?.error);
+          alert('⚠️ Could not save package to Supabase:\n' + (res?.error || 'Unknown error. Please check console.'));
+        }
+      } catch (err) {
+        console.error('Submission exception:', err);
+        alert('⚠️ Submission Error:\n' + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origBtnHtml;
         }
       }
     });
@@ -1034,42 +970,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Render Approved / Custom Hajj Packages (from Supabase and Local Storage)
+  // Render Approved Hajj Packages (Strictly from Supabase where is_approved = true)
   async function renderCustomHajjPackages() {
     if (!customHajjContainer) return;
-    customHajjContainer.innerHTML = '';
 
-    const localPackages = JSON.parse(localStorage.getItem('customHajjPackages') || '[]');
-    let remotePackages = [];
+    // Clear any legacy localStorage cache so unapproved local cards never appear
+    try { localStorage.removeItem('customHajjPackages'); } catch (e) {}
+
+    let hajjPackagesToDisplay = [];
 
     if (window.SupabasePackages && window.SupabasePackages.isConfigured()) {
       try {
         const remote = await window.SupabasePackages.fetchApprovedPackages('hajj');
         if (Array.isArray(remote)) {
-          remotePackages = remote;
+          hajjPackagesToDisplay = remote;
         }
       } catch (err) {
         console.warn('Supabase fetch failed:', err);
       }
     }
 
-    // Merge remote approved packages and locally published packages
-    const combinedMap = new Map();
-    remotePackages.forEach(pkg => {
-      const key = pkg.id || (pkg.name + '_' + (pkg.dates || ''));
-      combinedMap.set(key, { ...pkg, isRemote: true });
-    });
+    customHajjContainer.innerHTML = '';
 
-    localPackages.forEach(pkg => {
-      const key = pkg.id || (pkg.name + '_' + (pkg.dates || ''));
-      if (!combinedMap.has(key)) {
-        combinedMap.set(key, { ...pkg, isRemote: false });
-      }
-    });
-
-    const hajjPackagesToDisplay = Array.from(combinedMap.values());
-
-    hajjPackagesToDisplay.forEach((pkg, idx) => {
+    hajjPackagesToDisplay.forEach((pkg) => {
       const card = document.createElement('div');
       card.className = 'hajj-package-card';
       const days = pkg.days || '20';
@@ -1093,7 +1016,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="hajj-badge-days">${days} Days</span>
             <span class="hajj-badge-type">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
-              ${pkg.isRemote ? 'Verified' : 'Live'}
+              Verified
             </span>
           </div>
           
@@ -1116,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="hajj-lic-num">Lic: DTS #1042</span>
           </div>
 
-          <h3 class="hajj-pkg-title">${pkg.name} <span class="custom-pkg-tag">${pkg.isRemote ? 'Approved' : 'Live'}</span></h3>
+          <h3 class="hajj-pkg-title">${pkg.name} <span class="custom-pkg-tag">Approved</span></h3>
 
           <div class="hajj-tags-row">
             <span class="hajj-tag-airline">
@@ -1186,10 +1109,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>View Details</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
-              ${!pkg.isRemote ? `
-              <button type="button" class="btn-delete-custom-hajj-pkg" data-id="${pkg.id || ''}" data-index="${idx}" style="background: #FEE2E2; color: #DC2626; border: none; border-radius: 20px; padding: 0 14px; cursor: pointer; font-size: 1.1rem; font-weight: bold;" title="Delete Custom Package">
-                &times;
-              </button>` : ''}
             </div>
           </div>
         </div>
@@ -1198,33 +1117,15 @@ document.addEventListener('DOMContentLoaded', () => {
       customHajjContainer.appendChild(card);
     });
 
-    document.querySelectorAll('.btn-delete-custom-hajj-pkg').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const pkgId = btn.getAttribute('data-id');
-        const idx = Number(btn.getAttribute('data-index'));
-        let currentSaved = JSON.parse(localStorage.getItem('customHajjPackages') || '[]');
-        if (pkgId) {
-          currentSaved = currentSaved.filter(p => p.id !== pkgId);
-        } else {
-          currentSaved.splice(idx, 1);
-        }
-        localStorage.setItem('customHajjPackages', JSON.stringify(currentSaved));
-        renderCustomHajjPackages();
-        if (typeof filterHajjPackages === 'function') filterHajjPackages();
-      });
-    });
-
     if (typeof filterHajjPackages === 'function') filterHajjPackages();
   }
 
-  // Handle Hajj Form Submit (Local-First + Supabase Cloud Sync)
+  // Handle Hajj Form Submit (Strictly saves to Supabase with is_approved = false; NO localStorage)
   if (uploadHajjForm) {
     uploadHajjForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const newHajjPkg = {
-        id: 'hajj_' + Date.now(),
         type: 'hajj',
         name: document.getElementById('hajjPkgName')?.value.trim() || 'Custom VIP Hajj Package',
         airline: document.getElementById('hajjPkgAirline')?.value.trim() || 'DIRECT / INDIRECT AIRLINE',
@@ -1241,69 +1142,41 @@ document.addEventListener('DOMContentLoaded', () => {
         madinahHotel: document.getElementById('hajjPkgMadinah')?.value.trim() || 'MARKAZIA (4 Nights)',
         minaSchedule: document.getElementById('hajjPkgMina')?.value.trim() || 'AZIZIA BUILDING + MASHAER (7 Nights)',
         seats: document.getElementById('hajjPkgSeats')?.value.trim() || '30 / 30 Seats Available',
-        image: uploadedHajjImageData || 'assets/images/hajj-card-banner.png',
-        created_at: new Date().toISOString()
+        image: uploadedHajjImageData || 'assets/images/hajj-card-banner.png'
       };
 
       const submitBtn = uploadHajjForm.querySelector('button[type="submit"]');
       const origBtnHtml = submitBtn ? submitBtn.innerHTML : '';
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Publishing Package...</span>';
+        submitBtn.innerHTML = '<span>Saving to Supabase...</span>';
       }
 
-      // 1. Always save locally first so the card is NEVER lost and is live immediately!
       try {
-        const currentSaved = JSON.parse(localStorage.getItem('customHajjPackages') || '[]');
-        currentSaved.unshift(newHajjPkg);
-        localStorage.setItem('customHajjPackages', JSON.stringify(currentSaved));
-      } catch (storageErr) {
-        console.warn('LocalStorage save warning:', storageErr);
-      }
-
-      // 2. Refresh UI cards immediately
-      await renderCustomHajjPackages();
-      if (typeof filterHajjPackages === 'function') filterHajjPackages();
-
-      // 3. Attempt Supabase Cloud Sync
-      let supabaseSuccess = false;
-      let supabaseError = '';
-
-      if (window.SupabasePackages && window.SupabasePackages.isConfigured()) {
-        try {
-          const res = await window.SupabasePackages.submitPackage(newHajjPkg);
-          if (res && res.success) {
-            supabaseSuccess = true;
-          } else {
-            supabaseError = res ? res.error : 'Connection error';
-          }
-        } catch (err) {
-          supabaseError = err.message;
+        if (!window.SupabasePackages || !window.SupabasePackages.isConfigured()) {
+          throw new Error('Supabase client is not loaded or configured. Please check assets/js/supabase-config.js and assets/js/supabase-client.js.');
         }
-      }
 
-      // Reset form and close modal
-      uploadHajjForm.reset();
-      uploadedHajjImageData = '';
-      if (hajjUploadPreviewBox) {
-        hajjUploadPreviewBox.innerHTML = '<span style="font-size: 0.85rem; color: #64748B;">Select an image banner or default banner will be used</span>';
-      }
-      closeHajjUploadModal();
-
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = origBtnHtml;
-      }
-
-      // User notification
-      if (supabaseSuccess) {
-        alert('✅ Hajj Package Published Successfully!\n\nYour package is now live on this page and saved to Supabase (Pending Admin Review).');
-      } else {
-        const isNetworkErr = supabaseError.toLowerCase().includes('fetch') || supabaseError.toLowerCase().includes('network') || supabaseError.toLowerCase().includes('timeout');
-        if (isNetworkErr) {
-          alert('✅ Hajj Package Published to Website Successfully!\n\nYour package card is now live on this page.\n\n📌 Supabase Cloud Note: Your Supabase database at zkyllgszozizaqkoqkgz.supabase.co was paused by Supabase or unreachable. To sync cards to the cloud database, simply click "Restore project" in your Supabase dashboard at https://supabase.com/dashboard.');
+        const res = await window.SupabasePackages.submitPackage(newHajjPkg);
+        if (res && res.success) {
+          uploadHajjForm.reset();
+          uploadedHajjImageData = '';
+          if (hajjUploadPreviewBox) {
+            hajjUploadPreviewBox.innerHTML = '<span style="font-size: 0.85rem; color: #64748B;">Select an image banner or default banner will be used</span>';
+          }
+          closeHajjUploadModal();
+          alert('✅ Hajj Package Submitted to Supabase!\n\nYour package has been saved to the Supabase database (public.packages) with is_approved = false.\n\nGo to your Supabase Table Editor and change "is_approved" to TRUE — the card will appear automatically on this page!');
         } else {
-          alert('✅ Hajj Package Published to Website Successfully!\n\nYour package card is now live on this page.');
+          console.error('Supabase insert failed:', res?.error);
+          alert('⚠️ Could not save package to Supabase:\n' + (res?.error || 'Unknown error. Please check console.'));
+        }
+      } catch (err) {
+        console.error('Submission exception:', err);
+        alert('⚠️ Submission Error:\n' + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origBtnHtml;
         }
       }
     });
